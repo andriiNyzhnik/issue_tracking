@@ -1,0 +1,14 @@
+%ul.nav.nav-tabs
+  %li{role: 'presentation', class: params[:action] == 'unassigned' ? 'active' : ''}
+    = link_to unassigned_user_tickets_path do
+      Unassigned #{Ticket.unassigned.count}
+  - tickets_by_owner = Ticket.by_owner(current_user)
+  %li{role: 'presentation', class: params[:action] == 'open' ? 'active' : ''}
+    = link_to open_user_tickets_path do
+      Open #{tickets_by_owner.by_status([Ticket::WAITING_FOR_CUSTOMER, Ticket::WAITING_FOR_STUFF_RESPONCE]).count}
+  %li{role: 'presentation', class: params[:action] == 'hold' ? 'active' : ''}
+    = link_to hold_user_tickets_path do
+      Hold #{tickets_by_owner.by_status(Ticket::HOLD).count}
+  %li{role: 'presentation', class: params[:action] == 'closed' ? 'active' : ''}
+    = link_to closed_user_tickets_path do
+      Closed #{tickets_by_owner.by_status([Ticket::COMPLETED, Ticket::CANCELLED]).count}

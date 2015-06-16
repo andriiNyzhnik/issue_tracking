@@ -1,0 +1,25 @@
+%nav.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to 'Issue Tracking', root_path, class: 'navbar-brand'
+    - if user_signed_in?
+      %ul.nav.navbar-nav.navbar-left
+        = form_tag search_user_tickets_path, method: :get, class: 'navbar-form navbar-left', role: 'search' do
+          .form-group
+            = text_field_tag :q, params[:q], placeholder: :Search, class: 'form-control'
+          = button_tag :Search, class: 'btn btn-default'
+    %ul.nav.navbar-nav.navbar-right
+      - if user_signed_in?
+        %p.navbar-text
+          Signed in as #{current_user.email}
+        %li
+          = link_to 'Sign out', destroy_user_session_path, method: :delete
+      - else
+        %li
+          = link_to 'Sign in', new_user_session_path
+        

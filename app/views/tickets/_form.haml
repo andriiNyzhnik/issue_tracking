@@ -1,0 +1,8 @@
+= simple_form_for @ticket, html: { class: 'form-horizontal' } do |f|
+  = f.simple_fields_for :customer do |c|
+    = c.input :name
+    = c.input :email
+  = f.input :subject
+  = f.input :department
+  = f.input :content
+  = f.button :submit

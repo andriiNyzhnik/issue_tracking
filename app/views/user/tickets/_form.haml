@@ -1,0 +1,10 @@
+= simple_form_for [:user, @ticket] do |f|
+  = f.input :owner_id, collection: User.all.select(:id, :email).map { |u| [u.email, u.id] }, as: :select
+  %br
+  = f.input :status, collection: Ticket::STATUSES, as: :select, include_blank: false
+  %br
+  = f.simple_fields_for :replies do |r|
+    - next if r.object.persisted?
+    = r.input :body
+    = r.hidden_field :user_id, value: current_user.id
+  = f.button :submit

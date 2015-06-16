@@ -1,0 +1,15 @@
+.list-group
+  = link_to edit_user_ticket_path(ticket), class: 'list-group-item' do
+    %p.list-group-item-text
+      %b Subject:
+      %span= ticket.subject
+      %br
+      %b Department:
+      %span= ticket.department
+      %br
+      %b Customer
+      %span= ticket.customer.name
+      %br
+      %b Content
+      %span= ticket.content
+

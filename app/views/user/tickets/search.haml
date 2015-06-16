@@ -1,0 +1,5 @@
+- if @tickets.size > 0
+  %h3 Tickets by query: #{params[:q]}
+  = render @tickets
+- else
+  %h3 We wan't able to find any ticket by query: #{params[:q]}

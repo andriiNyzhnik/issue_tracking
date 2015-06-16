@@ -1,0 +1,5 @@
+= simple_form_for @ticket do |f|
+  = f.simple_fields_for :replies do |r|
+    - next if r.object.persisted?
+    = r.input :body
+  = f.button :submit

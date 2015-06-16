@@ -1,0 +1,15 @@
+%h2 Ticket
+%dl.dl-horizontal
+  %dt Subject
+  %dd= @ticket.subject
+  %dt Department
+  %dd= @ticket.department
+  %dt Content
+  %dd= @ticket.content
+  - if @ticket.replies.any?
+    %dt Replies
+    %dd
+      - @ticket.replies.each do |reply|
+        = reply.body
+        %br
+  = render 'new_reply'
