@@ -51,6 +51,7 @@ class User::TicketsController < ApplicationController
 
   def search
     @tickets = Ticket.search(params[:q])
+    # if only one ticket has been found - redirect to edit page
     if @tickets.size == 1
       redirect_to edit_user_ticket_path(@tickets.first)
       return

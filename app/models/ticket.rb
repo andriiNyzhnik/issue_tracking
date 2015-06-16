@@ -40,26 +40,8 @@ class Ticket < ActiveRecord::Base
 
   private
 
-  def random_chars
-    Array.new(3) { [*'A'..'Z'].sample }.join
-  end
-
-  def random_hex
-    Array.new(2) { rand(16).to_s(16).upcase }.join
-  end
-
-  def generate_slug
-    [random_chars, random_hex, random_chars, random_hex, random_chars].join('-')
-  end
-
   def ensure_slug
-    loop do
-      slug = generate_slug
-      unless Ticket.find_by_slug(slug)
-        self.slug = slug
-        break
-      end
-    end
+    self.slug = UniqReference.generate
   end
 
   def send_to_customer

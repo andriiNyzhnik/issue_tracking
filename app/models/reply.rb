@@ -1,11 +1,12 @@
 class Reply < ActiveRecord::Base
+  CUSTOMER = 'Customer'
   belongs_to :ticket
   belongs_to :repliable, polymorphic: true
 
   validates_presence_of :body
 
-  after_create :notify_customer, if: proc { |reply| reply.repliable_type == 'Customer' }
-  after_create :reset_ticket_status, if: proc { |reply| reply.repliable_type != 'Customer' }
+  after_create :notify_customer, if: proc { |reply| reply.repliable_type == CUSTOMER }
+  after_create :reset_ticket_status, if: proc { |reply| reply.repliable_type != CUSTOMER }
 
   private
 
